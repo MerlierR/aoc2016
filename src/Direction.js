@@ -15,6 +15,10 @@ export default class Direction {
         this.internalDirection = internalDirection;
     }
 
+    get modifiers() {
+        return DIRECTION_MODIFIERS.get(this.internalDirection);
+    }
+
     turnClockwise() {
         return new Direction((this.internalDirection + 1) % 4);
     }
@@ -24,20 +28,17 @@ export default class Direction {
     }
 }
 
-export function walkDirection(position: Number[],
-                              direction: Direction,
-                              distance: Number) {
-    const [colMod, rowMod] = DIRECTION_MODIFIERS.get(direction.internalDirection);
+export function walkDirection(position: Number[], direction: Direction, distance: Number) {
+    const [colMod, rowMod] = direction.modifiers;
+
     return [
         position[0] + distance * colMod,
         position[1] + distance * rowMod
     ];
 }
 
-export function* walkDirectionGenerator(position: Number[],
-                                        direction: Direction,
-                                        distance: Number) {
-    const [colMod, rowMod] = DIRECTION_MODIFIERS.get(direction.internalDirection);
+export function* walkDirectionGenerator(position: Number[], direction: Direction, distance: Number) {
+    const [colMod, rowMod] = direction.modifiers;
 
     for (let i = 1; i <= distance; i++) {
         yield [

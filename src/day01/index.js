@@ -16,7 +16,7 @@ import { followInstructions, parseInput } from './day01';
     console.log(`Part 1: ${distance}`);
 
     const dupeDistance = Math.min(...[...dupes].map((dupePosition) => manhattanDistance(dupePosition)));
-    console.log(`Part 2: ${dupeDistance}a`);
+    console.log(`Part 2: ${dupeDistance}`);
 
     process.exit();
 })();

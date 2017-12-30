@@ -25,10 +25,11 @@ export function getDiscs(input: Object[], initialDiscs: Map<number, Disc> = new 
 }
 
 export function calculateStartTime(discs: Map<number, Disc>) {
-    let startTime = 0;
+    let startTime = -1;
     let fallsTrough = false;
 
     while (!fallsTrough) {
+        startTime += 1;
         fallsTrough = true;
         for (let [discNumber, disc] of discs.entries()) {
             const time = discNumber + startTime;
@@ -36,9 +37,7 @@ export function calculateStartTime(discs: Map<number, Disc>) {
 
             if (!fallsTrough) break;
         }
-
-        startTime += 1;
     }
 
-    return startTime - 1;
+    return startTime;
 }

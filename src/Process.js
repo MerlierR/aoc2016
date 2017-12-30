@@ -1,15 +1,23 @@
+/*@flow*/
+
 import Register from './Register';
 
 export class Instruction {
-    constructor(name: String, fn: Function) {
+    name: string;
+    fn: Function;
+
+    constructor(name: string, fn: Function) {
         this.name = name;
         this.fn = fn;
     }
 }
 
 export default class Process {
+    pid: number;
+    registers: Map<string, Register>;
+    instructions: Instruction[];
 
-    constructor(pid) {
+    constructor(pid: number) {
         this.pid = pid;
         this.registers = new Map();
         this.instructions = [];
@@ -19,7 +27,7 @@ export default class Process {
         this.instructions = instructions;
     }
 
-    run(): Map<Register> {
+    run(): Map<string, Register> {
         const l = this.instructions.length;
 
         let currentIndex = 0;
@@ -32,32 +40,33 @@ export default class Process {
         return this.registers;
     }
 
-    set(register, value) {
+    set(register: string, value: string, index: number): number {
         this.getRegister(register).value = this.getValue(value);
+        return index + 1;
     }
 
-    inc(register, index) {
+    inc(register: string, index: number): number {
         this.getRegister(register).inc();
         return index + 1;
     }
 
-    dec(register, index) {
+    dec(register: string, index: number): number {
         this.getRegister(register).dec();
         return index + 1;
     }
 
-    cpy(value, register, index) {
+    cpy(value: string, register: string, index: number): number {
         this.getRegister(register).value = this.getValue(value);
         return index + 1;
     }
 
-    jnz(check, value, index) {
+    jnz(check: string, value: string, index: number): number {
         if (this.getValue(check) !== 0) return index + this.getValue(value);
         else return index + 1;
     }
 
     /**@private*/
-    getRegister(name: String): Register {
+    getRegister(name: string): Register {
         if (!this.registers.has(name)) {
             this.registers.set(name, new Register(name, 0));
         }
@@ -66,7 +75,7 @@ export default class Process {
     }
 
     /**@private*/
-    getValue(value: Number | String): Number {
+    getValue(value: string): number {
         const valueAsInt = parseInt(value, 10);
 
         if (!isNaN(valueAsInt)) return valueAsInt;

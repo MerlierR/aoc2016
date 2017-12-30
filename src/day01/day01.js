@@ -18,9 +18,9 @@ export function followInstruction(directionToTurn: string,
                                   distanceToWalk: number,
                                   currentPosition: number[],
                                   currentDirection: Direction) {
-    let nextDirection;
-    if (directionToTurn === 'L') nextDirection = currentDirection.turnCounterClockwise();
-    else if (directionToTurn === 'R') nextDirection = currentDirection.turnClockwise();
+    const nextDirection = directionToTurn === 'L'
+        ? currentDirection.turnCounterClockwise()
+        : currentDirection.turnClockwise();
 
     const nextPositions = walkDirectionGenerator(currentPosition, nextDirection, distanceToWalk);
     const subPositions = [];

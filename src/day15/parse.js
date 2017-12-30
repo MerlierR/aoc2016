@@ -1,4 +1,4 @@
-export default function parse(input: String) {
+export default function parse(input: string) {
     return input.split('\n').map((line) => {
 
         const matches = line.match(/^.+?#(\d+?).+?(\d.+?).+?(\d.+?).+?(\d.+?)$/);

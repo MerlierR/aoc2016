@@ -1,15 +1,19 @@
+/*@flow*/
+
 export default class Register {
-    constructor(id: String, value: Number) {
+    id: string;
+    value: number;
+
+    constructor(id: string, value: number) {
         this.id = id;
         this.value = value;
     }
 
-    inc(arg: Number = 1) {
+    inc(arg: number = 1) {
         this.value += arg;
     }
 
-
-    dec(arg: Number = 1) {
+    dec(arg: number = 1) {
         this.value -= arg;
     }
 }

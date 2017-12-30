@@ -22,5 +22,12 @@ module.exports = {
     rules: {
         'flowtype-errors/show-errors': 1,
         'no-console': 0
+    },
+    globals: {
+        Generator: true,
+        Iterator: true,
+        Iterable: true,
+        $Keys: true,
+        $Shape: true
     }
 };

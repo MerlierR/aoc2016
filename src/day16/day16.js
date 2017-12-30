@@ -3,7 +3,7 @@ export function checksum(input: string, length: number): string {
 
     // expand
     while (result.length <= length) {
-        result = expandInput(result);
+        expandInput(result);
     }
 
     // trim
@@ -22,8 +22,11 @@ export function trimInput(input: number[], length: number): number[] {
 }
 
 export function expandInput(input: number[]): number[] {
-    const b = input.map((char) => (char + 1) % 2).reverse();
-    return [...input, 0, ...b];
+    input.push(0);
+
+    for (let i = input.length - 2; i >= 0; i--) input.push((input[i] + 1) % 2);
+
+    return input;
 }
 
 export function partialChecksum(input: number[]): number[] {

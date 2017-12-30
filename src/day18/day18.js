@@ -20,5 +20,5 @@ export function getGrid(input: string, numberOfRows: number): number[][] {
 }
 
 export function countSafeTiles(grid: number[][]) {
-    return grid.join('').match(/(0)/g).length;
+    return grid.reduce((total, row) => total + row.reduce((rTotal, item) => rTotal + ((item + 1) % 2), 0), 0);
 }

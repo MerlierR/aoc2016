@@ -1,18 +1,9 @@
 export function checksum(input: string, length: number): string {
     let result = input.split('').map((char) => parseInt(char, 10));
 
-    // expand
-    while (result.length <= length) {
-        expandInput(result);
-    }
-
-    // trim
+    while (result.length <= length) expandInput(result);
     trimInput(result, length);
-
-    // checksum
-    while (result.length % 2 === 0) {
-        result = partialChecksum(result);
-    }
+    while (result.length % 2 === 0) result = partialChecksum(result);
 
     return result.join('');
 }

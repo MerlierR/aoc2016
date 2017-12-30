@@ -4,7 +4,8 @@
   "description": "Advent Of Code 2016",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config jest.config.js --coverage --verbose",
+    "test": "jest --config jest.config.js",
+    "review": "eslint src/**/*.js && jest --config jest.config.js --coverage",
     "script": "babel-node"
   },
   "author": "",
@@ -14,12 +15,18 @@
     "npm": "5.6.0"
   },
   "devDependencies": {
+    "@types/jest": "^22.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.14.0",
+    "eslint-plugin-flowtype-errors": "^3.3.6",
+    "eslint-plugin-jest": "^21.5.0",
+    "flow-bin": "^0.62.0",
     "jest": "^22.0.4"
   },
   "dependencies": {}

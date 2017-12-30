@@ -1,3 +1,5 @@
+/*@flow*/
+
 import Process, { Instruction } from '../Process';
 
 export function parseInput(input: String): Process {

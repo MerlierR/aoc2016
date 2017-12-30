@@ -3,19 +3,20 @@
 import Direction, { walkDirectionGenerator } from '../Direction';
 import { hashPosition } from '../Position';
 
-export function parseInput(data: String) {
+export function parseInput(data: string) {
     return data.split(', ').map(parseInstruction);
 }
 
-export function parseInstruction(instruction: String) {
-    const [_, direction, distance] = instruction.match(/([a-zA-Z]+)(\d+)/);
+export function parseInstruction(instruction: string) {
+    // eslint-disable-next-line
+    const [, direction, distance] = instruction.match(/([a-zA-Z]+)(\d+)/);
 
     return followInstruction.bind(null, direction, parseInt(distance, 10));
 }
 
-export function followInstruction(directionToTurn: String,
-                                  distanceToWalk: Number,
-                                  currentPosition: Number[],
+export function followInstruction(directionToTurn: string,
+                                  distanceToWalk: number,
+                                  currentPosition: number[],
                                   currentDirection: Direction) {
     let nextDirection;
     if (directionToTurn === 'L') nextDirection = currentDirection.turnCounterClockwise();

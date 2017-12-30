@@ -1,28 +1,35 @@
+/*@flow*/
+
 export class Disc {
-    constructor(numberOfPositions: Number, startPosition: Number, startTime: Number) {
+    numberOfPositions: number;
+    startPosition: number;
+    startTime: number;
+
+    constructor(numberOfPositions: number, startPosition: number, startTime: number) {
         this.numberOfPositions = numberOfPositions;
         this.startPosition = startPosition;
         this.startTime = startTime;
     }
 
-    positionAtTime(t) {
+    positionAtTime(t: number): number {
         return (t + this.startTime + this.startPosition) % this.numberOfPositions;
     }
 }
 
-export function getDiscs(input) {
-    return input.reduce((discs: Map, { disc, positions, position, time }) => {
+export function getDiscs(input: Object[], initialDiscs: Map<number, Disc> = new Map()) {
+    return input.reduce((discs: Map<number, Disc>, { disc, positions, position, time }) => {
         discs.set(disc, new Disc(positions, position, time));
 
         return discs;
-    }, new Map());
+    }, initialDiscs);
 }
 
-export function calculateStartTime(discs: Map<Number, Disc>) {
+export function calculateStartTime(discs: Map<number, Disc>) {
     let startTime = 0;
+    let fallsTrough = false;
 
-    while (true) {
-        let fallsTrough = true;
+    while (!fallsTrough) {
+        fallsTrough = true;
         for (let [discNumber, disc] of discs.entries()) {
             const time = discNumber + startTime;
             fallsTrough = disc.positionAtTime(time) === 0;
@@ -30,9 +37,8 @@ export function calculateStartTime(discs: Map<Number, Disc>) {
             if (!fallsTrough) break;
         }
 
-        if (fallsTrough) break;
-        else startTime += 1;
+        startTime += 1;
     }
 
-    return startTime;
+    return startTime - 1;
 }

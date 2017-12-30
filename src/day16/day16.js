@@ -7,7 +7,7 @@ export function checksum(input: string, length: number): string {
     }
 
     // trim
-    result = trimInput(result, length);
+    trimInput(result, length);
 
     // checksum
     while (result.length % 2 === 0) {
@@ -18,7 +18,9 @@ export function checksum(input: string, length: number): string {
 }
 
 export function trimInput(input: number[], length: number): number[] {
-    return input.slice(0, length);
+    input.splice(length);
+
+    return input;
 }
 
 export function expandInput(input: number[]): number[] {
@@ -32,10 +34,7 @@ export function expandInput(input: number[]): number[] {
 export function partialChecksum(input: number[]): number[] {
     const l = input.length;
     const result = [];
-    for (let i = 0; i < l; i += 2) {
-        if (input[i] === input[i + 1]) result.push(1);
-        else result.push(0);
-    }
+    for (let i = 0; i < l; i += 2) result.push(~(input[i] ^ input[i + 1]) + 0b10);
 
     return result;
 }

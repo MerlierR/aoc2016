@@ -1,4 +1,6 @@
 /*@flow*/
+import type { Position } from './Position';
+
 type Modifier = { colMod: number; rowMod: number };
 
 const DIRECTION_MODIFIERS: Modifier[] = [
@@ -18,7 +20,7 @@ export default class Direction {
 
     /**@private*/
     constructor(internalDirection: number) {
-        this.internalDirection = internalDirection;
+        /**@private*/ this.internalDirection = internalDirection;
     }
 
     get modifiers(): Modifier {
@@ -34,7 +36,7 @@ export default class Direction {
     }
 }
 
-export function walkDirection(position: number[], direction: Direction, distance: number) {
+export function walkDirection(position: Position, direction: Direction, distance: number) {
     const [colMod, rowMod] = direction.modifiers;
 
     return [
@@ -43,7 +45,7 @@ export function walkDirection(position: number[], direction: Direction, distance
     ];
 }
 
-export function* walkDirectionGenerator(position: number[], direction: Direction, distance: number): Iterable<number[]> {
+export function* walkDirectionGenerator(position: Position, direction: Direction, distance: number): Iterable<Position> {
     const { colMod, rowMod } = direction.modifiers;
 
     for (let i = 1; i <= distance; i++) {

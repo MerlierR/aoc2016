@@ -66,12 +66,10 @@ export default class Process {
     }
 
     /**@private*/
-    getRegister(name: string): Register {
-        if (!this.registers.has(name)) {
-            this.registers.set(name, new Register(name, 0));
-        }
+    getRegister(name: string, defaultRegister: () => Register = () => new Register(name, 0)): Register {
+        if (!this.registers.has(name)) this.registers.set(name, defaultRegister());
 
-        return this.registers.get(name);
+        return this.registers.get(name) || defaultRegister();
     }
 
     /**@private*/
